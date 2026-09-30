@@ -1,7 +1,7 @@
-# Monitor anomalie di prezzo → WhatsApp
+# Monitor anomalie di prezzo → email Gmail
 
 Controlla ogni ora le offerte di **telefonia** su MediaWorld, Euronics, Unieuro e
-Amazon.it e invia un messaggio WhatsApp quando un prodotto costa **almeno il 50% in
+Amazon.it e ti invia una **email** quando un prodotto costa **almeno il 50% in
 meno** del suo prezzo medio di riferimento.
 
 ## Come funziona
@@ -14,39 +14,28 @@ meno** del suo prezzo medio di riferimento.
 4. Calcola il **prezzo di riferimento** come media tra:
    - il prezzo di listino/barrato mostrato dal negozio, se presente;
    - la media dei prezzi rilevati negli ultimi 30 giorni (dopo almeno 3 rilevazioni).
-5. Se `prezzo attuale ≤ riferimento × 0,5` invia il messaggio WhatsApp.
+5. Se `prezzo attuale ≤ riferimento × 0,5` ti invia una email (una sola per esecuzione, con tutte le anomalie in tabella).
 6. Salva lo storico in `data/history.json` (commit automatico) ed evita di
    ri-notificare lo stesso prodotto allo stesso prezzo per 24 ore.
 
-Esempio di messaggio:
+Esempio di oggetto: `Anomalia prezzo -59%: Apple iPhone 15 128GB (Amazon.it) e altre 2`.
+Il corpo contiene una tabella con negozio, prodotto (con link), prezzo, riferimento e sconto.
 
-```
-⚠️ Anomalie di prezzo rilevate
+## Configurazione Gmail
 
-🚨 *Amazon.it* -59%
-Apple iPhone 15 128GB
-💶 399.00 € (rif. 979.00 € – prezzo di listino)
-https://www.amazon.it/dp/B0...
-```
+L'invio usa il server SMTP di Gmail con una **password per le app** (la password
+normale dell'account non funziona).
 
-## Configurazione WhatsApp
+1. Attiva la verifica in due passaggi sull'account Google, se non l'hai già fatto.
+2. Vai su <https://myaccount.google.com/apppasswords>, crea una password per l'app
+   (es. "Price monitor") e copia il codice di 16 caratteri.
+3. Nel repository GitHub: *Settings → Secrets and variables → Actions → New repository secret*:
+   - `GMAIL_USER` = il tuo indirizzo Gmail
+   - `GMAIL_APP_PASSWORD` = il codice di 16 caratteri
+   - `EMAIL_TO` *(facoltativo)* = destinatario diverso; se assente l'email arriva a `GMAIL_USER`
 
-### Opzione A — CallMeBot (gratuito, consigliato per uso personale)
-
-1. Salva in rubrica il numero **+34 694 29 84 96** (CallMeBot).
-2. Inviagli su WhatsApp il messaggio: `I allow callmebot to send me messages`.
-3. Riceverai la tua **API key**.
-4. Nel repository GitHub: *Settings → Secrets and variables → Actions → New repository secret*:
-   - `WHATSAPP_PHONE` = il tuo numero con prefisso, es. `+393331234567`
-   - `CALLMEBOT_APIKEY` = la API key ricevuta
-
-> Verifica il numero aggiornato di CallMeBot su <https://www.callmebot.com/blog/free-api-whatsapp-messages/>.
-
-### Opzione B — Twilio
-
-Aggiungi i secret `WHATSAPP_PHONE`, `TWILIO_ACCOUNT_SID`, `TWILIO_AUTH_TOKEN`,
-`TWILIO_WHATSAPP_FROM` (es. `+14155238886` per la sandbox). Se presenti, Twilio ha
-la precedenza su CallMeBot.
+Consiglio: crea un filtro Gmail sull'oggetto "Anomalia prezzo" per etichettarle o
+ricevere una notifica dedicata sul telefono.
 
 ## Avvio
 
@@ -56,7 +45,7 @@ la precedenza su CallMeBot.
 
   ```bash
   pip install -r requirements.txt
-  python -m price_monitor --dry-run   # stampa i messaggi senza inviarli
+  python -m price_monitor --dry-run   # stampa l'email senza inviarla
   python -m pytest                    # test
   ```
 

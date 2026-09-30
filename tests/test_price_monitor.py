@@ -5,7 +5,7 @@ import pytest
 
 from price_monitor.detector import History, find_anomalies
 from price_monitor.models import Product, parse_price
-from price_monitor.notify import MAX_MESSAGE_CHARS, build_messages
+from price_monitor.notify import build_email
 from price_monitor.parsers import parse_page
 
 CONFIG = {"threshold": 0.5, "min_history_samples": 3, "history_days": 30,
@@ -121,12 +121,16 @@ def test_no_duplicate_notifications(tmp_path):
     assert len(find_anomalies([_product(300, list_price=1000)], reloaded, CONFIG, NOW + timedelta(hours=2))) == 1
 
 
-def test_messages_are_split(tmp_path):
+def test_email_content(tmp_path):
     history = History(tmp_path / "h.json")
-    products = [Product("unieuro", str(i), f"Smartphone {i} " + "x" * 100, 100, f"https://u.it/{i}", 500)
-                for i in range(30)]
+    products = [
+        Product("unieuro", "1", "Galaxy <S24>", 300, "https://u.it/1?a=1&b=2", 900),
+        Product("amazon", "2", "iPhone 15", 400, "https://amazon.it/dp/2", 1000),
+    ]
     anomalies = find_anomalies(products, history, CONFIG, NOW)
-    messages = build_messages(anomalies)
-    assert len(messages) > 1
-    assert all(len(m) <= MAX_MESSAGE_CHARS for m in messages)
-    assert sum(m.count("🚨") for m in messages) == 30
+    msg = build_email(anomalies, "me@gmail.com", "me@gmail.com")
+    assert msg["Subject"].startswith("Anomalia prezzo -67%: Galaxy <S24> (Unieuro) e altre 1")
+    html_part = msg.get_body(("html",)).get_content()
+    assert "Galaxy &lt;S24&gt;" in html_part and "a=1&amp;b=2" in html_part
+    text_part = msg.get_body(("plain",)).get_content()
+    assert "iPhone 15" in text_part and "-60%" in text_part

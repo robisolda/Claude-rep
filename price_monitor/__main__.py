@@ -12,7 +12,7 @@ import yaml
 
 from .detector import History, find_anomalies
 from .fetch import fetch_browser, fetch_requests
-from .notify import send_whatsapp
+from .notify import send_email
 from .parsers import parse_page
 
 log = logging.getLogger("price_monitor")
@@ -37,7 +37,7 @@ def collect(config: dict) -> list:
 
 
 def main(argv=None) -> int:
-    parser = argparse.ArgumentParser(description="Monitor anomalie di prezzo con notifiche WhatsApp")
+    parser = argparse.ArgumentParser(description="Monitor anomalie di prezzo con notifiche email")
     parser.add_argument("--config", default="config.yaml")
     parser.add_argument("--history", default="data/history.json")
     parser.add_argument("--dry-run", action="store_true", help="stampa i messaggi invece di inviarli")
@@ -56,7 +56,7 @@ def main(argv=None) -> int:
     anomalies = find_anomalies(products, history, config, now)
     log.info("%d prodotti analizzati, %d anomalie", len(products), len(anomalies))
     try:
-        send_whatsapp(anomalies, dry_run=args.dry_run)
+        send_email(anomalies, dry_run=args.dry_run)
         # Only mark as notified once delivery succeeded, so failures are retried next run.
         for anomaly in anomalies:
             history.mark_notified(anomaly.product, now)

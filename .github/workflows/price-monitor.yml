@@ -29,13 +29,11 @@ jobs:
           pip install -r requirements.txt playwright
           python -m playwright install --with-deps chromium
 
-      - name: Controlla i prezzi e invia notifiche WhatsApp
+      - name: Controlla i prezzi e invia email
         env:
-          WHATSAPP_PHONE: ${{ secrets.WHATSAPP_PHONE }}
-          CALLMEBOT_APIKEY: ${{ secrets.CALLMEBOT_APIKEY }}
-          TWILIO_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
-          TWILIO_AUTH_TOKEN: ${{ secrets.TWILIO_AUTH_TOKEN }}
-          TWILIO_WHATSAPP_FROM: ${{ secrets.TWILIO_WHATSAPP_FROM }}
+          GMAIL_USER: ${{ secrets.GMAIL_USER }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          EMAIL_TO: ${{ secrets.EMAIL_TO }}
         run: python -m price_monitor
 
       - name: Salva lo storico dei prezzi
