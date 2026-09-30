@@ -1,0 +1,47 @@
+# Configurazione del monitor di anomalie di prezzo.
+
+# Soglia di anomalia: il prezzo attuale deve essere inferiore al prezzo
+# di riferimento di almeno questa percentuale (0.50 = -50%).
+threshold: 0.50
+
+# Numero minimo di rilevazioni storiche per usare la media storica come
+# prezzo di riferimento quando il sito non mostra un prezzo di listino.
+min_history_samples: 3
+
+# Giorni di storico usati per calcolare il prezzo medio.
+history_days: 30
+
+# Non ri-notificare lo stesso prodotto allo stesso prezzo per N ore.
+renotify_after_hours: 24
+
+# Prezzo minimo (in euro) per considerare un prodotto: esclude accessori
+# economici dove un -50% è frequente e poco interessante.
+min_price: 30
+
+# Parole chiave che escludono un prodotto (confronto case-insensitive).
+exclude_keywords:
+  - cover
+  - custodia
+  - pellicola
+  - vetro temperato
+  - cavo
+  - caricabatterie
+  - supporto
+  - ricondizionato
+  - usato
+
+# Pagine da controllare. "site" seleziona il parser dedicato
+# (amazon, mediaworld, unieuro, euronics); gli altri usano il parser generico.
+sources:
+  - site: mediaworld
+    url: https://www.mediaworld.it/it/category/smartphone-e-cellulari-11.html
+  - site: mediaworld
+    url: https://www.mediaworld.it/it/category/offerte-telefonia-12.html
+  - site: euronics
+    url: https://www.euronics.it/telefonia/smartphone/
+  - site: unieuro
+    url: https://www.unieuro.it/online/Smartphone
+  - site: amazon
+    url: https://www.amazon.it/s?i=electronics&rh=n%3A1497228031&s=exact-aware-popularity-rank
+  - site: amazon
+    url: https://www.amazon.it/gp/goldbox?deals-widget=%257B%2522version%2522%253A1%252C%2522viewIndex%2522%253A0%252C%2522presetId%2522%253A%2522deals-collection-cell-phones%2522%257D
