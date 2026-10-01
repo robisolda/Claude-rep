@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Infografica Centro Studi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  /* Token: --brand-* sono segnaposto neutri, da sostituire con i colori istituzionali forniti. */
+  :root {
+    --bg: #f6f6f4;
+    --surface: #ffffff;
+    --text: #1d1d1f;
+    --muted: #5f6368;
+    --rule: #e2e2de;
+    --brand-1: #2f5d8a;  /* sezione 1 / colore principale */
+    --brand-2: #b4573a;  /* sezione 2 */
+    --brand-3: #3d7a5c;  /* sezione 3 */
+    --brand-4: #7a5a99;  /* sezione 4 */
+    --pos: #3d7a5c;
+    --neg: #b4573a;
+    --estimate-opacity: 0.55;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #141416; --surface: #1e1e21; --text: #ececec; --muted: #a3a3a8; --rule: #333338;
+      --brand-1: #7fa9d4; --brand-2: #e0906f; --brand-3: #7cc2a0; --brand-4: #b39bd1;
+      --pos: #7cc2a0; --neg: #e0906f;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #141416; --surface: #1e1e21; --text: #ececec; --muted: #a3a3a8; --rule: #333338;
+    --brand-1: #7fa9d4; --brand-2: #e0906f; --brand-3: #7cc2a0; --brand-4: #b39bd1;
+    --pos: #7cc2a0; --neg: #e0906f;
+  }
+
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text);
+         font: 16px/1.5 Inter, "Source Sans 3", system-ui, sans-serif; }
+  main { max-width: 900px; margin: 0 auto; padding: 32px 16px 48px; }
+
+  header h1 { font-size: clamp(1.5rem, 4vw, 2.2rem); line-height: 1.2; margin: 0 0 6px; font-weight: 800; }
+  header .sub { color: var(--muted); margin: 0 0 24px; }
+
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 28px; }
+  .tile { background: var(--surface); border-radius: 12px; padding: 16px; border-top: 4px solid var(--brand-1); }
+  .tile .num { font-size: 2rem; font-weight: 800; line-height: 1.1; }
+  .tile .lab { font-weight: 600; margin-top: 4px; }
+  .tile .cmp { color: var(--muted); font-size: .9rem; }
+
+  .blocks { display: grid; grid-template-columns: 1fr; gap: 16px; }
+  @media (min-width: 760px) { .blocks { grid-template-columns: 1fr 1fr; } }
+  .block { background: var(--surface); border-radius: 12px; padding: 18px; border-left: 4px solid var(--sec); }
+  .block .insight { margin: 0 0 12px; }
+  .block .insight b { color: var(--sec); }
+  .block h3 { font-size: 1rem; margin: 0; }
+  .block .unit { color: var(--muted); font-size: .85rem; margin: 0 0 8px; }
+  .block .src { color: var(--muted); font-size: .78rem; margin-top: 8px; }
+  .s1 { --sec: var(--brand-1); } .s2 { --sec: var(--brand-2); }
+  .s3 { --sec: var(--brand-3); } .s4 { --sec: var(--brand-4); }
+
+  .takehome { margin-top: 28px; background: var(--surface); border-radius: 12px; padding: 18px; }
+  .takehome h2 { font-size: 1.1rem; margin: 0 0 12px; }
+  .takehome dl { margin: 0; display: grid; gap: 10px; }
+  .takehome dt { font-weight: 800; letter-spacing: .03em; color: var(--brand-1); }
+  .takehome dd { margin: 0; }
+
+  footer { margin-top: 24px; color: var(--muted); font-size: .8rem; border-top: 1px solid var(--rule); padding-top: 12px; }
+  svg { display: block; width: 100%; height: auto; }
+  svg text { fill: var(--text); font: 12px Inter, system-ui, sans-serif; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1><!-- Titolo-messaggio: la tesi, non la descrizione --></h1>
+    <p class="sub"><!-- (Perimetro, valori e unità, periodo) --></p>
+  </header>
+
+  <section class="tiles">
+    <!-- 2–4 tile: numero, etichetta, confronto -->
+    <div class="tile"><div class="num"></div><div class="lab"></div><div class="cmp"></div></div>
+  </section>
+
+  <section class="blocks">
+    <!-- 2–4 blocchi; classe s1..s4 = colore di sezione -->
+    <article class="block s1">
+      <p class="insight"><!-- 25–45 parole, 2–5 parole chiave in <b> --></p>
+      <h3><!-- Titolo grafico-messaggio --></h3>
+      <p class="unit"><!-- (Dati annuali, var. % annue) --></p>
+      <!-- Grafico SVG inline o tabella -->
+      <p class="src">Elaborazione: Centro Studi – dati <!-- Fonte -->, <em><!-- mese anno --></em></p>
+    </article>
+  </section>
+
+  <section class="takehome">
+    <h2>Key take-home message</h2>
+    <dl>
+      <dt><!-- ETICHETTA --></dt><dd><!-- frase di spiegazione --></dd>
+    </dl>
+  </section>
+
+  <footer>
+    <!-- Note metodologiche: stime, preconsuntivi, definizioni, basi degli indici -->
+  </footer>
+</main>
+</body>
+</html>
