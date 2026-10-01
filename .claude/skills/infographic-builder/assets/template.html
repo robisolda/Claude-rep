@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
 <title>Infografica Centro Studi</title>
 <style>
   /* Palette istituzionale Centro Studi (da slide "Argomenti e fonti").
@@ -22,20 +23,7 @@
     --pos: #616936;
     --neg: #891a2d;
     --estimate-opacity: 0.55;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --bg: #1c1b18; --surface: #26241f; --title: #e6e3f2; --text: #ece8dc; --muted: #a9a59a; --rule: #3a372f;
-      --on-band: #1c1b18;
-      --brand-1: #8fb0c2; --brand-2: #d9707f; --brand-3: #a8b26a; --brand-4: #e0916b;
-      --pos: #a8b26a; --neg: #d9707f;
-    }
-  }
-  :root[data-theme="dark"] {
-    --bg: #1c1b18; --surface: #26241f; --title: #e6e3f2; --text: #ece8dc; --muted: #a9a59a; --rule: #3a372f;
-    --on-band: #1c1b18;
-    --brand-1: #8fb0c2; --brand-2: #d9707f; --brand-3: #a8b26a; --brand-4: #e0916b;
-    --pos: #a8b26a; --neg: #d9707f;
+    color-scheme: light;  /* solo versione chiara, anche con il dispositivo in modo scuro */
   }
 
   * { box-sizing: border-box; }

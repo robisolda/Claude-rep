@@ -48,7 +48,8 @@ Etichette dei valori in formato italiano ("18,1", "+1,6 p.p.", "-0,4%"). Niente 
 - Sigle sciolte alla prima occorrenza, salvo quelle d'uso comune nel settore.
 
 ## Aspetto
-- Parti da `assets/template.html`: contiene la struttura (testata, tile, blocchi, take-home, piede), i token colore e i modi chiaro/scuro.
+- Parti da `assets/template.html`: contiene la struttura (testata, tile, blocchi, take-home, piede), i token colore e lo schema solo chiaro.
+- **Solo versione chiara.** Sfondo beige sempre, anche se il dispositivo è in modo scuro: niente varianti scure né `prefers-color-scheme: dark`. Il template forza `color-scheme: light`.
 - **Palette istituzionale** (dalle slide CS, già nei token del template):
 
   | Ruolo | Colore | Token |
@@ -78,5 +79,5 @@ Etichette dei valori in formato italiano ("18,1", "+1,6 p.p.", "-0,4%"). Niente 
 - Ci sono verbi causali senza prova, "strutturale" su un anno, enfasi o formule logore?
 - Stime e preconsuntivi sono etichettati come tali, nel grafico e nel piede?
 - Fonti presenti per ogni blocco, nel formato CS?
-- Leggibile in modo chiaro e scuro e a larghezza telefono?
+- Solo versione chiara (sfondo beige) e leggibile a larghezza telefono?
 - Se esiste una presentazione istituzionale collegata, numeri e messaggi coincidono?
