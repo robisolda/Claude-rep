@@ -4,43 +4,46 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Infografica Centro Studi</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
-  /* Token: --brand-* sono segnaposto neutri, da sostituire con i colori istituzionali forniti. */
+  /* Palette istituzionale Centro Studi (da slide "Argomenti e fonti").
+     Ordine delle sezioni = livelli dell'analisi CS. */
   :root {
-    --bg: #f6f6f4;
-    --surface: #ffffff;
-    --text: #1d1d1f;
-    --muted: #5f6368;
-    --rule: #e2e2de;
-    --brand-1: #2f5d8a;  /* sezione 1 / colore principale */
-    --brand-2: #b4573a;  /* sezione 2 */
-    --brand-3: #3d7a5c;  /* sezione 3 */
-    --brand-4: #7a5a99;  /* sezione 4 */
-    --pos: #3d7a5c;
-    --neg: #b4573a;
+    --bg: #f2efe6;       /* beige, sfondo dominante */
+    --surface: #faf8f2;  /* card, appena più chiara dello sfondo */
+    --title: #2a3054;    /* blu notte dei titoli */
+    --text: #303143;
+    --muted: #63646f;
+    --rule: #dcd7c9;
+    --on-band: #ffffff;
+    --brand-1: #58798a;  /* Contesto macroeconomico – blu ardesia */
+    --brand-2: #891a2d;  /* Scenari internazionali – bordeaux */
+    --brand-3: #616936;  /* Settore beauty Italia – verde oliva */
+    --brand-4: #b2603b;  /* Trend di consumo – terracotta */
+    --pos: #616936;
+    --neg: #891a2d;
     --estimate-opacity: 0.55;
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --bg: #141416; --surface: #1e1e21; --text: #ececec; --muted: #a3a3a8; --rule: #333338;
-      --brand-1: #7fa9d4; --brand-2: #e0906f; --brand-3: #7cc2a0; --brand-4: #b39bd1;
-      --pos: #7cc2a0; --neg: #e0906f;
+      --bg: #1c1b18; --surface: #26241f; --title: #e6e3f2; --text: #ece8dc; --muted: #a9a59a; --rule: #3a372f;
+      --on-band: #1c1b18;
+      --brand-1: #8fb0c2; --brand-2: #d9707f; --brand-3: #a8b26a; --brand-4: #e0916b;
+      --pos: #a8b26a; --neg: #d9707f;
     }
   }
   :root[data-theme="dark"] {
-    --bg: #141416; --surface: #1e1e21; --text: #ececec; --muted: #a3a3a8; --rule: #333338;
-    --brand-1: #7fa9d4; --brand-2: #e0906f; --brand-3: #7cc2a0; --brand-4: #b39bd1;
-    --pos: #7cc2a0; --neg: #e0906f;
+    --bg: #1c1b18; --surface: #26241f; --title: #e6e3f2; --text: #ece8dc; --muted: #a9a59a; --rule: #3a372f;
+    --on-band: #1c1b18;
+    --brand-1: #8fb0c2; --brand-2: #d9707f; --brand-3: #a8b26a; --brand-4: #e0916b;
+    --pos: #a8b26a; --neg: #d9707f;
   }
 
   * { box-sizing: border-box; }
   body { margin: 0; background: var(--bg); color: var(--text);
-         font: 16px/1.5 Inter, "Source Sans 3", system-ui, sans-serif; }
+         font: 16px/1.5 "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif; }
   main { max-width: 900px; margin: 0 auto; padding: 32px 16px 48px; }
 
-  header h1 { font-size: clamp(1.5rem, 4vw, 2.2rem); line-height: 1.2; margin: 0 0 6px; font-weight: 800; }
+  header h1 { color: var(--title); font-size: clamp(1.5rem, 4vw, 2.2rem); line-height: 1.2; margin: 0 0 6px; font-weight: 800; }
   header .sub { color: var(--muted); margin: 0 0 24px; }
 
   .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 28px; }
@@ -54,21 +57,25 @@
   .block { background: var(--surface); border-radius: 12px; padding: 18px; border-left: 4px solid var(--sec); }
   .block .insight { margin: 0 0 12px; }
   .block .insight b { color: var(--sec); }
-  .block h3 { font-size: 1rem; margin: 0; }
+  .block h3 { color: var(--title); font-size: 1rem; margin: 0; }
+  /* Fascia di sezione a freccia, come nelle slide CS */
+  .band { background: var(--sec); color: var(--on-band); font-weight: 700; font-size: 1.05rem;
+          padding: 8px 40px 8px 16px; margin: 0 0 12px -18px; width: calc(100% + 18px);
+          clip-path: polygon(0 0, calc(100% - 22px) 0, 100% 50%, calc(100% - 22px) 100%, 0 100%); }
   .block .unit { color: var(--muted); font-size: .85rem; margin: 0 0 8px; }
   .block .src { color: var(--muted); font-size: .78rem; margin-top: 8px; }
   .s1 { --sec: var(--brand-1); } .s2 { --sec: var(--brand-2); }
   .s3 { --sec: var(--brand-3); } .s4 { --sec: var(--brand-4); }
 
   .takehome { margin-top: 28px; background: var(--surface); border-radius: 12px; padding: 18px; }
-  .takehome h2 { font-size: 1.1rem; margin: 0 0 12px; }
+  .takehome h2 { color: var(--title); font-size: 1.1rem; margin: 0 0 12px; }
   .takehome dl { margin: 0; display: grid; gap: 10px; }
   .takehome dt { font-weight: 800; letter-spacing: .03em; color: var(--brand-1); }
   .takehome dd { margin: 0; }
 
   footer { margin-top: 24px; color: var(--muted); font-size: .8rem; border-top: 1px solid var(--rule); padding-top: 12px; }
   svg { display: block; width: 100%; height: auto; }
-  svg text { fill: var(--text); font: 12px Inter, system-ui, sans-serif; }
+  svg text { fill: var(--text); font: 12px "Segoe UI", system-ui, sans-serif; }
 </style>
 </head>
 <body>
@@ -84,8 +91,9 @@
   </section>
 
   <section class="blocks">
-    <!-- 2–4 blocchi; classe s1..s4 = colore di sezione -->
+    <!-- 2–4 blocchi; s1 macro, s2 internazionale, s3 settore Italia, s4 trend di consumo -->
     <article class="block s1">
+      <div class="band"><!-- Nome sezione, es. Contesto macroeconomico --></div>
       <p class="insight"><!-- 25–45 parole, 2–5 parole chiave in <b> --></p>
       <h3><!-- Titolo grafico-messaggio --></h3>
       <p class="unit"><!-- (Dati annuali, var. % annue) --></p>

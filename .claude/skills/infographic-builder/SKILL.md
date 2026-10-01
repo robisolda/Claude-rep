@@ -49,8 +49,20 @@ Etichette dei valori in formato italiano ("18,1", "+1,6 p.p.", "-0,4%"). Niente 
 
 ## Aspetto
 - Parti da `assets/template.html`: contiene la struttura (testata, tile, blocchi, take-home, piede), i token colore e i modi chiaro/scuro.
-- **Palette.** I token `--brand-*` nel template sono segnaposto neutri. Se Rob fornisce i colori istituzionali (o un file di brand), sostituisci solo quei token; non indovinare i colori di Cosmetica Italia. Un colore per sezione, coerente in tutta l'infografica; il colore di sezione colora anche il bold dei box.
-- Font: un sans leggibile (Inter o Source Sans 3 da Google Fonts) se non è indicato il font istituzionale.
+- **Palette istituzionale** (dalle slide CS, già nei token del template):
+
+  | Ruolo | Colore | Token |
+  |---|---|---|
+  | Sfondo dominante (beige) | `#f2efe6` | `--bg` |
+  | Titoli (blu notte) | `#2a3054` | `--title` |
+  | Testo | `#303143` | `--text` |
+  | Contesto macroeconomico (blu ardesia) | `#58798a` | `--brand-1` / `.s1` |
+  | Scenari internazionali (bordeaux) | `#891a2d` | `--brand-2` / `.s2` |
+  | Settore beauty Italia (verde oliva) | `#616936` | `--brand-3` / `.s3` |
+  | Trend di consumo (terracotta) | `#b2603b` | `--brand-4` / `.s4` |
+
+  Il colore segue il **livello dell'analisi**, non l'ordine dei blocchi: un blocco sui canali è sempre verde, uno sull'e-commerce sempre terracotta. Il colore di sezione colora fascia, bordo, bold del box e serie principale del grafico; le serie secondarie usano tinte più chiare dello stesso colore o grigio (`--muted`), non gli altri colori di sezione. Lo sfondo resta beige: niente bianco puro come sfondo pagina. Le fasce di sezione (`.band`) hanno la forma a freccia delle slide e testo bianco.
+- **Font:** Segoe UI, con fallback `system-ui, -apple-system, Roboto, Arial`. Non va caricato da Google Fonts (non c'è): chi non ha Windows vede il fallback. Per un PNG da consegnare, rendere su una macchina con Segoe UI o dichiarare che il font è un sostituto.
 - Larghezza massima ~900 px, una colonna su mobile, due colonne per i blocchi da desktop. Nessuno scroll orizzontale.
 - Nessun logo o marchio di Cosmetica Italia o di terzi, a meno che Rob non fornisca il file e chieda di usarlo.
 
